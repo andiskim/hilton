@@ -8,6 +8,7 @@ import DatePicker from 'react-native-datepicker';
 
 interface DatePickerCustomProps {
     date: string,
+    title: string,
     minDate: string,
     maxDate: string,
     format: string,
@@ -18,7 +19,7 @@ const DatePickerCustom: FunctionComponent<DatePickerCustomProps> = (props) => {
     return (
         <View>
             <Text style={styles.field}>
-                Departure Date
+                {props.title}
             </Text>
             <DatePicker
                 style={styles.datePicker}
@@ -30,7 +31,7 @@ const DatePickerCustom: FunctionComponent<DatePickerCustomProps> = (props) => {
                 maxDate={props.maxDate}
                 confirmBtnText="Confirm"
                 cancelBtnText="Cancel"
-                onDateChange={() => console.log("onDateChange")}
+                onDateChange={props.onDateChange}
             />
         </View>
     )

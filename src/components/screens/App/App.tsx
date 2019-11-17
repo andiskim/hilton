@@ -14,7 +14,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
   link: new HttpLink(
   {
-   uri: 'http://your.graphql.url/graphql'
+   uri: 'https://us1.prisma.sh/public-luckox-377/reservation-graphql-backend/dev'
   })
 });
 

@@ -25,9 +25,7 @@ const Home: FunctionComponent<HomeProps> = (props) => {
     const [hotelName, setHotelName] = useState<string>('');
 
     const handlePressReservations = () => {
-        debugger;
-        console.log(hotelName);
-        props.navigation.navigate('Reservations');
+        navigation.navigate('Reservations', { hotelName });
     }
 
     return (
@@ -39,11 +37,12 @@ const Home: FunctionComponent<HomeProps> = (props) => {
             <View style={styles.homeContentContainer}>
                 <View style={styles.hotelDropdownContainer}>
                     <TextInputCustom 
-                        field='Please select a Hilton Branch:'
+                        field='Please input a Hilton branch:'
                         value={hotelName}
                         onChangeText={(input: string) => {
                             setHotelName(input)
                         }}
+                        editable={true}
                         ></TextInputCustom>
                 </View>
                 <View style={styles.reservationsButton}>

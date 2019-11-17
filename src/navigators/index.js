@@ -3,7 +3,7 @@ import { createStackNavigator } from 'react-navigation-stack'
 
 // Navigators
 import Home from '../components/screens/Home/Home';
-import Reservations from'../components/screens/Reservations/Reservations';
+import Reservations from'../components/screens/Reservations';
 
 const RootStack =  createStackNavigator(
   {

@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import {
     View,
     Text,
@@ -14,40 +14,72 @@ import DatePickerCustom from 'reusable/DatePickerCustom';
 const screen = Dimensions.get('window');
 
 interface AddReservationProps {
-    setModalClose: () => void
+    setModalClose: () => void,
+    hotelName: string
 }
 
 const AddReservation: FunctionComponent<AddReservationProps> = (props) => {
+    const [hotelName, setHotelName] = useState(props.hotelName);
+    const [name, setName] = useState('');
+    const [arrivalDate, setArrivalDate] = useState('');
+    const [departureDate, setDepartureDate] = useState('');
+
+    const handleAddReservation = () => {
+        console.log(hotelName);
+        console.log(name);
+        console.log(arrivalDate);
+        console.log(departureDate);
+    }
+
     return (
         <>
             <ModalHeader onPress={props.setModalClose}/>
             <View style={styles.addReservationContainer}>
                 <View style={styles.addReservationContentContainer}>
                     <View>
-                        <TextInputCustom field={'Name'}/>
+                        <TextInputCustom 
+                            field={'Hotel Name'} 
+                            value={hotelName}
+                            editable={false}
+                        />
                     </View>
                     <View>
-                        <TextInputCustom field={'Hotel Name'}/>
-                    </View>
-                    <View>
-                        <DatePickerCustom 
-                            date={''}
-                            minDate={moment().format("MM-DD-YYYY")}
-                            maxDate={'12-31-2022'}
-                            format={'MM-DD-YYYY'}
+                        <TextInputCustom 
+                            field={'Name'}
+                            value={name}
+                            onChangeText={(input: string) => {
+                                setName(input);
+                            }}
+                            editable={true}
                         />
                     </View>
                     <View>
                         <DatePickerCustom 
-                            date={''}
+                            date={arrivalDate}
+                            title={'Arrival Date'}
                             minDate={moment().format("MM-DD-YYYY")}
                             maxDate={'12-31-2022'}
                             format={'MM-DD-YYYY'}
+                            onDateChange={(input: string) => {
+                                setArrivalDate(input);
+                            }}
+                        />
+                    </View>
+                    <View>
+                        <DatePickerCustom 
+                            date={departureDate}
+                            title={'Departure Date'}
+                            minDate={moment().format("MM-DD-YYYY")}
+                            maxDate={'12-31-2022'}
+                            format={'MM-DD-YYYY'}
+                            onDateChange={(input: string) => {
+                                setDepartureDate(input);
+                            }}
                         />
                     </View>
                 </View>
                 <View style={styles.addReservationButton}>
-                    <Button>Add Reservation</Button>
+                    <Button onPress={() => handleAddReservation()}>Add Reservation</Button>
                 </View>
             </View>
         </>

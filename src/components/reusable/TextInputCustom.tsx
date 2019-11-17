@@ -9,6 +9,7 @@ import {
 interface TextInputCustomProps {
     field: string,
     value: string,
+    editable: boolean,
     onChangeText: () => void
 }
 
@@ -19,9 +20,10 @@ const TextInputCustom: FunctionComponent<TextInputCustomProps> = (props) => {
                 {props.field}
             </Text>
             <TextInput 
-                style={styles.fieldBox} 
+                style={[styles.fieldBox, props.editable ? null : { color: 'grey' }]} 
                 value={props.value}
                 onChangeText={props.onChangeText}
+                editable={props.editable}
             />
         </View>
     )
