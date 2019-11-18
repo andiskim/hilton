@@ -11,7 +11,10 @@
       "strict": true,
       "target": "esnext",
       "rootDir": "src",
-      "outDir": "build"
+      "outDir": "build",
+      "paths": {
+        "src/*": ["./*"],
+      },
     },
     "exclude": [
       "node_modules",
