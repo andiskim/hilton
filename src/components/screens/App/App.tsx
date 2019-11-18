@@ -1,5 +1,6 @@
 
 import React from 'react';
+import fetch from 'node-fetch'
 import { ApolloClient } from 'apollo-client';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { InMemoryCache } from 'apollo-cache-inmemory';
@@ -14,7 +15,8 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
   link: new HttpLink(
   {
-   uri: 'https://us1.prisma.sh/public-luckox-377/reservation-graphql-backend/dev'
+   uri: 'https://us1.prisma.sh/public-luckox-377/reservation-graphql-backend/dev',
+   fetch: fetch
   })
 });
 

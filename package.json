@@ -47,12 +47,20 @@
     "ts-jest": "^24.1.0"
   },
   "jest": {
-    "preset": "ts-jest",
-    "snapshotSerializers": [
-      "enzyme-to-json/serializer"
+    "preset": "react-native",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
     ],
-    "setupFilesAfterEnv": [
-      "<rootDir>/jest.setup.js"
+    "transformIgnorePatterns": [
+      "node_modules/(?!(jest-)?react-native|react-navigation|react-navigation-redux-helpers|@react-navigation/.*)"
+    ],
+    "setupFiles": [
+      "./node_modules/react-native-gesture-handler/jestSetup.js"
     ]
   }
 }
