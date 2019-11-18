@@ -4,7 +4,8 @@ import {
     View,
     Dimensions,
     StyleSheet,
-    Alert
+    Alert,
+    ActivityIndicator
 } from 'react-native';
 import moment from 'moment';
 import ModalHeader from 'reusable/ModalHeader';
@@ -25,33 +26,40 @@ const AddReservation: FunctionComponent<AddReservationProps> = (props) => {
     const [name, setName] = useState('');
     const [arrivalDate, setArrivalDate] = useState('');
     const [departureDate, setDepartureDate] = useState('');
-
     const [createReservation, {loading, data, error}] = useMutation(CREATE_RESERVATION, {
-        variables: {
-            hotelName: "DrewTel",
-            name: "Testing",
-            arrivalDate: "12-12-20",
-            departureDate: "12-12-21"
-        }});
+            onCompleted() {
+                Alert.alert(
+                    'Success!',
+                    'You have added a reservation.',
+                    [
+                        {text: 'OK', onPress: () => props.setModalClose(), style: 'cancel'},
+                    ],
+                    { cancelable: false }
+                );
+                setName('');
+                setArrivalDate('');
+                setDepartureDate('');
+            },
+            onError() {
+                Alert.alert(
+                    'Error!',
+                    'There was an error adding the reservation.',
+                    [
+                        {text: 'OK', style: 'cancel'},
+                    ],
+                    { cancelable: false }
+                );
+            }
+        }
+    );
 
     const handleAddReservation = () => {
-        // console.log(hotelName);
-        // console.log(name);
-        // console.log(arrivalDate);
-        // console.log(departureDate);
-        // const { loading, data, error } = useMutation(CREATE_RESERVATION, {
-        //     variables: {
-        //         hotelName: "DrewTel",
-        //         name: "Testing",
-        //         arrivalDate: "12-12-20",
-        //         departureDate: "12-12-21"
-        //     }});
-        // debugger;
-        
-        createReservation();
-        setName('');
-        setArrivalDate('');
-        setDepartureDate('');
+        createReservation({variables: {
+            hotelName,
+            name,
+            arrivalDate,
+            departureDate
+        }});
     }
 
     return (
@@ -106,6 +114,7 @@ const AddReservation: FunctionComponent<AddReservationProps> = (props) => {
                         onPress={() => handleAddReservation()}
                         disabled={!(hotelName && name && arrivalDate && departureDate)}>Add Reservation</Button>
                 </View>
+                {loading ? <ActivityIndicator style={styles.indicator} /> : null}
             </View>
         </>
     )
@@ -131,6 +140,9 @@ const styles = StyleSheet.create({
     addReservationButton: {
         flexDirection: 'row',
         justifyContent: 'center'
+    },
+    indicator: {
+        marginHorizontal: 'auto'
     }
 })
 

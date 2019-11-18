@@ -1,24 +1,33 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
+import { useQuery } from '@apollo/react-hooks'
 import { 
-    FlatList
+    ActivityIndicator,
+    Text,
+    FlatList,
+    StyleSheet
 } from 'react-native';
 import Reservation from 'screens/Reservations/ReservationsList/Reservation';
+import { GET_RESERVATIONS } from 'api/queries';
 
 interface ReservationsListProps {
-    reservations: {
-        id: string,
-        hotelName: string,
-        name: string,
-        arrivalDate: string,
-        departureDate: string
-    }[],
+    hotelName: string
+    modalOpen: boolean
 }
 
 const ReservationsList: FunctionComponent<ReservationsListProps> = (props) => {
+    const { loading, data, error } = useQuery(GET_RESERVATIONS, {variables: {hotelName: props.hotelName}});
+    useEffect(() => {
+        debugger;
+    })
+
+    if(loading) return <ActivityIndicator style={styles.indicator} />;
+    if(error) return <Text style={styles.loadError}>Error loading data.</Text>;
+    if(data.reservations.length === 0) return <Text style={styles.loadError}>No reservations found for {props.hotelName}.</Text>;
+
     return (
         <>
             <FlatList
-                data={props.reservations}
+                data={data.reservations}
                 renderItem={({ item }) => (
                     <Reservation 
                         id={item.id}
@@ -33,5 +42,15 @@ const ReservationsList: FunctionComponent<ReservationsListProps> = (props) => {
         </>
     )
 }
+
+const styles = StyleSheet.create({
+    indicator: {
+        marginTop: 40
+    },
+    loadError: {
+        textAlign: 'center',
+        margin: 40,
+    },
+});
 
 export default ReservationsList;

@@ -4,6 +4,7 @@ import {
     Text,
     StyleSheet
 } from 'react-native';
+import moment from 'moment';
 
 interface ReservationProps {
     id: string,
@@ -14,8 +15,18 @@ interface ReservationProps {
 }
 
 const Reservation: FunctionComponent<ReservationProps> = (props) => {
+    const isValidDate = (date: string) => {
+        const momentDate = moment(date, "MM/DD/YYYY").unix();
+        const currentMomentDate = moment().unix();
+        if(isNaN(momentDate) || momentDate <= currentMomentDate) {
+            return {opacity: .5}
+        } else {
+            return null
+        }
+    }
+
     return (
-        <>
+        <View style={isValidDate(props.arrivalDate)}>
             <View style={{height: 10}} />
             <View style={{borderWidth: 1, padding: 10, marginHorizontal: 10, borderRadius: 3}}>
                 <View style={styles.fieldContainer}>
@@ -31,7 +42,7 @@ const Reservation: FunctionComponent<ReservationProps> = (props) => {
                     <Text style={styles.field}>Departure :</Text><Text style={styles.fieldValue}>{props.departureDate}</Text>
                 </View>
             </View>
-        </>
+        </View>
     )
 }
 

@@ -12,7 +12,7 @@ import {
  } from 'react-native';
 import Modal from 'react-native-modalbox';
 import ReservationList from 'screens/Reservations/ReservationsList/ReservationsList';
-import AddReservation from 'screens/AddReservation/AddReservation';
+import AddReservation from 'screens/AddReservation';
 import { COLORS } from 'theme';
 import { GET_RESERVATIONS } from 'api/queries';
 import { NavigationScreenProp, NavigationState } from 'react-navigation';
@@ -29,23 +29,24 @@ interface ReservationsProps {
 
 const Reservations: FunctionComponent<ReservationsProps> = (props) => {
     const hotelName = props.navigation.getParam('hotelName');
-    const { loading, data, error } = useQuery(GET_RESERVATIONS, {variables: {hotelName}});
     const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const triggerRefresh = () => {
+        
+    }
 
     return (
         <SafeAreaView style={styles.container}>
-            {loading ? <ActivityIndicator style={styles.indicator} /> : 
-                error ? <Text style={styles.loadError}>Error loading data.</Text> :
-                    data.reservations.length === 0 ? <Text style={styles.loadError}>No reservations found for {hotelName}.</Text> :
-                        <ReservationList reservations={data.reservations} />
-            }
+            <ReservationList 
+                hotelName={hotelName}
+                modalOpen={modalOpen}
+            />
             <TouchableOpacity style={styles.floatingAction} onPress={() => setModalOpen(!modalOpen)}>
                     <View style={styles.plusSignContainer}>
                         <Text style={styles.plusSign}>+</Text>
                     </View>
             </TouchableOpacity>
             <Modal 
-                style={styles.modal} 
+                style={styles.addReservationModal} 
                 isOpen={modalOpen}
                 entry={'bottom'} 
                 position={'bottom'}
@@ -84,14 +85,7 @@ const styles = StyleSheet.create({
         fontSize: 25,
         color: 'white',
     },
-    indicator: {
-        marginTop: 40
-    },
-    loadError: {
-        textAlign: 'center',
-        margin: 40,
-    },
-    modal: {
+    addReservationModal: {
         height: screen.height*0.85,
         borderTopLeftRadius: 15,
         borderTopRightRadius: 15
