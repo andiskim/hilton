@@ -30,8 +30,10 @@ interface ReservationsProps {
 const Reservations: FunctionComponent<ReservationsProps> = (props) => {
     const hotelName = props.navigation.getParam('hotelName');
     const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const [refresh, setRefresh] = useState<boolean>(false);
     const triggerRefresh = () => {
-        
+        debugger;
+        setRefresh(!refresh);
     }
 
     return (
@@ -39,6 +41,7 @@ const Reservations: FunctionComponent<ReservationsProps> = (props) => {
             <ReservationList 
                 hotelName={hotelName}
                 modalOpen={modalOpen}
+                refresh={refresh}
             />
             <TouchableOpacity style={styles.floatingAction} onPress={() => setModalOpen(!modalOpen)}>
                     <View style={styles.plusSignContainer}>
@@ -55,6 +58,7 @@ const Reservations: FunctionComponent<ReservationsProps> = (props) => {
             >
                 <AddReservation 
                     setModalClose={() => setModalOpen(false)}
+                    triggerRefresh={() => triggerRefresh()}
                     hotelName={hotelName}
                 />
             </Modal>

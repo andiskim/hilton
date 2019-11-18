@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { FunctionComponent, useState, useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks'
 import { 
     ActivityIndicator,
@@ -10,15 +10,16 @@ import Reservation from 'screens/Reservations/ReservationsList/Reservation';
 import { GET_RESERVATIONS } from 'api/queries';
 
 interface ReservationsListProps {
-    hotelName: string
+    hotelName: string,
+    refresh: boolean,
     modalOpen: boolean
 }
 
 const ReservationsList: FunctionComponent<ReservationsListProps> = (props) => {
-    const { loading, data, error } = useQuery(GET_RESERVATIONS, {variables: {hotelName: props.hotelName}});
+    const { loading, data, error, refetch } = useQuery(GET_RESERVATIONS, {variables: {hotelName: props.hotelName}});
     useEffect(() => {
-        debugger;
-    })
+        refetch();
+    }, [props.refresh])
 
     if(loading) return <ActivityIndicator style={styles.indicator} />;
     if(error) return <Text style={styles.loadError}>Error loading data.</Text>;

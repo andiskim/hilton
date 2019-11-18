@@ -18,6 +18,7 @@ const screen = Dimensions.get('window');
 
 interface AddReservationProps {
     setModalClose: () => void,
+    triggerRefresh: () => void,
     hotelName: string
 }
 
@@ -32,7 +33,11 @@ const AddReservation: FunctionComponent<AddReservationProps> = (props) => {
                     'Success!',
                     'You have added a reservation.',
                     [
-                        {text: 'OK', onPress: () => props.setModalClose(), style: 'cancel'},
+                        {text: 'OK', onPress: () => {
+                            props.setModalClose();
+                            props.triggerRefresh();
+                        }
+                        , style: 'cancel'},
                     ],
                     { cancelable: false }
                 );

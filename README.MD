@@ -10,6 +10,12 @@ In terms of code organization, the folder structure is divided into 5 main parts
 * **navigators** - (this houses all the files related to navigation)
 * **theme** - (this is for scalability and code clarity)
 
+## Installation
+### iOS
+'yarn && react-native link && cd ios && pod install && cd .. && react-native run-ios'
+
+### Android
+'yarn && react-native link && react-native run-android'
 
 ## Usage
 In the main screen, simply input the next of the hotel.  The screen will navigate to a list of reservations for the specific hotel.  The “plus” icon at the bottom right pops a modal that allows the employee to enter reservation details.  Clicking “Add Reservation” will add the reservation, if successful, and then remove the modal.  The list will refresh to ensure that the data has been successfully inputted into the same but also to show the latest data.  Navigating back to the “Home” page will allow the user to navigate to another hotel.
