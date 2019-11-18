@@ -4,6 +4,7 @@ import {
     View,
     Text, 
     TouchableOpacity,
+    SafeAreaView,
     ScrollView,
     StyleSheet,
     Dimensions,
@@ -32,14 +33,12 @@ const Reservations: FunctionComponent<ReservationsProps> = (props) => {
     const [modalOpen, setModalOpen] = useState<boolean>(false);
 
     return (
-        <>
-            <ScrollView>
-                {loading ? <ActivityIndicator style={styles.indicator} /> : 
-                    error ? <Text style={styles.loadError}>Error loading data.</Text> :
-                        data.reservations.length === 0 ? <Text style={styles.loadError}>No reservations found for {hotelName}.</Text> :
-                            <ReservationList reservations={data.reservations} />
-                }
-            </ScrollView>
+        <SafeAreaView style={styles.container}>
+            {loading ? <ActivityIndicator style={styles.indicator} /> : 
+                error ? <Text style={styles.loadError}>Error loading data.</Text> :
+                    data.reservations.length === 0 ? <Text style={styles.loadError}>No reservations found for {hotelName}.</Text> :
+                        <ReservationList reservations={data.reservations} />
+            }
             <TouchableOpacity style={styles.floatingAction} onPress={() => setModalOpen(!modalOpen)}>
                     <View style={styles.plusSignContainer}>
                         <Text style={styles.plusSign}>+</Text>
@@ -58,11 +57,14 @@ const Reservations: FunctionComponent<ReservationsProps> = (props) => {
                     hotelName={hotelName}
                 />
             </Modal>
-        </>
+        </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
+    container: {
+        height: '100%'
+    },
     floatingAction: {
         width: 50,
         height: 50,

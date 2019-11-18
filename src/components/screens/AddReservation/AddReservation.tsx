@@ -1,15 +1,17 @@
 import React, { FunctionComponent, useState } from 'react';
+import { useMutation } from '@apollo/react-hooks'
 import {
     View,
-    Text,
     Dimensions,
-    StyleSheet
+    StyleSheet,
+    Alert
 } from 'react-native';
 import moment from 'moment';
 import ModalHeader from 'reusable/ModalHeader';
 import TextInputCustom from 'reusable/TextInputCustom';
 import Button from 'reusable/Button';
 import DatePickerCustom from 'reusable/DatePickerCustom';
+import { CREATE_RESERVATION } from 'api/mutations';
 
 const screen = Dimensions.get('window');
 
@@ -24,11 +26,32 @@ const AddReservation: FunctionComponent<AddReservationProps> = (props) => {
     const [arrivalDate, setArrivalDate] = useState('');
     const [departureDate, setDepartureDate] = useState('');
 
+    const [createReservation, {loading, data, error}] = useMutation(CREATE_RESERVATION, {
+        variables: {
+            hotelName: "DrewTel",
+            name: "Testing",
+            arrivalDate: "12-12-20",
+            departureDate: "12-12-21"
+        }});
+
     const handleAddReservation = () => {
-        console.log(hotelName);
-        console.log(name);
-        console.log(arrivalDate);
-        console.log(departureDate);
+        // console.log(hotelName);
+        // console.log(name);
+        // console.log(arrivalDate);
+        // console.log(departureDate);
+        // const { loading, data, error } = useMutation(CREATE_RESERVATION, {
+        //     variables: {
+        //         hotelName: "DrewTel",
+        //         name: "Testing",
+        //         arrivalDate: "12-12-20",
+        //         departureDate: "12-12-21"
+        //     }});
+        // debugger;
+        
+        createReservation();
+        setName('');
+        setArrivalDate('');
+        setDepartureDate('');
     }
 
     return (
@@ -79,7 +102,9 @@ const AddReservation: FunctionComponent<AddReservationProps> = (props) => {
                     </View>
                 </View>
                 <View style={styles.addReservationButton}>
-                    <Button onPress={() => handleAddReservation()}>Add Reservation</Button>
+                    <Button 
+                        onPress={() => handleAddReservation()}
+                        disabled={!(hotelName && name && arrivalDate && departureDate)}>Add Reservation</Button>
                 </View>
             </View>
         </>
@@ -102,7 +127,6 @@ const styles = StyleSheet.create({
         height: 500,
         flexDirection: 'column',
         justifyContent: 'space-evenly',
-        // borderWidth: 1
     },
     addReservationButton: {
         flexDirection: 'row',
