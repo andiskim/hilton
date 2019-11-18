@@ -7,7 +7,7 @@ import { HttpLink } from 'apollo-link-http';
 
 // Components
 // import Home from '../Home/Home';
-import RootNavigator from '../../../navigators';
+import RootNavigator from 'navigators';
 
 // Instantiate required constructor fields
 const client = new ApolloClient({

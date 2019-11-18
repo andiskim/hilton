@@ -194,7 +194,6 @@
 				74F37F739055E0C84B591E73 /* Pods-hiltonTests.debug.xcconfig */,
 				3373369EC704F466AF660B8E /* Pods-hiltonTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -308,6 +307,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
