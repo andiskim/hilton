@@ -4,11 +4,11 @@ This Hilton application utilizes the [Hilton Dev API](https://us1.prisma.sh/publ
 The application allows an employee to view all listings for a particular Hilton Hotel branch and gives them the option to add a reservation of a customer.
 
 In terms of code organization, the folder structure is divided into 5 main parts:
-* api - (this folder houses all the functions and files that are used for the api.  This folder is subdivided into “queries” for the graphql queries and “mutations” for the graphql mutations.
-* assets - (this folder houses all the assets used in the application.  For this demo, I’ve added an “images” folder for the logo.  In other projects, I’ve also had other assets like fonts.)
-* components - (this folder is further divided into the “reusable” and “screens” folders.  The “reusable” folder houses all the reusable components while the “screens” folder houses all the screens
-* navigators - (this houses all the files related to navigation)
-* theme - (this is for scalability and code clarity)
+* **api** - (this folder houses all the functions and files that are used for the api.  This folder is subdivided into “queries” for the graphql queries and “mutations” for the graphql mutations.
+* **assets** - (this folder houses all the assets used in the application.  For this demo, I’ve added an “images” folder for the logo.  In other projects, I’ve also had other assets like fonts.)
+* **components** - (this folder is further divided into the “reusable” and “screens” folders.  The “reusable” folder houses all the reusable components while the “screens” folder houses all the screens
+* **navigators** - (this houses all the files related to navigation)
+* **theme** - (this is for scalability and code clarity)
 
 
 ## Usage
